@@ -13,8 +13,8 @@ export default function Navbar({ toggleGraphMode }) {
 
     const location = useLocation()
     const showToggleButton = (
-        location.pathname === "/Holiday-Weather-Advisor" ||
-        location.pathname === "/Holiday-Weather-Advisor/noAccount"
+        location.pathname === "/Holiday_Weather_Advisor" ||
+        location.pathname === "/Holiday_Weather_Advisor/noAccount"
     );
 
     const [showInfo, setShowInfo] = useState(false)
@@ -44,9 +44,9 @@ export default function Navbar({ toggleGraphMode }) {
 
                 {!user && (
                     <>
-                        <li><Link to="/Holiday-Weather-Advisor/login">Login</Link></li>
-                        <li><Link to="/Holiday-Weather-Advisor/signup">Signup</Link></li>
-                        <li><Link to="/Holiday-Weather-Advisor/noAccount">Use without account</Link></li>
+                        <li><Link to="/Holiday_Weather_Advisor/login">Login</Link></li>
+                        <li><Link to="/Holiday_Weather_Advisor/signup">Signup</Link></li>
+                        <li><Link to="/Holiday_Weather_Advisor/noAccount">Use without account</Link></li>
                     </>
                 )}
 

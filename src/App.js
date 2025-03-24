@@ -21,20 +21,20 @@ function App() {
         <BrowserRouter>
           <Navbar toggleGraphMode={toggleGraphMode} />
           <Switch>
-            <Route exact path="/Holiday-Weather-Advisor">
-              {!user && <Redirect to="/Holiday-Weather-Advisor/login" />}
+            <Route exact path="/Holiday_Weather_Advisor">
+              {!user && <Redirect to="/Holiday_Weather_Advisor/login" />}
               {user && <Home graphMode={graphMode} />}
             </Route>
-            <Route path="/Holiday-Weather-Advisor/login">
-              {user && <Redirect to="/Holiday-Weather-Advisor" />}
+            <Route path="/Holiday_Weather_Advisor/login">
+              {user && <Redirect to="/Holiday_Weather_Advisor" />}
               {!user && <Login />}
             </Route>
-            <Route path="/Holiday-Weather-Advisor/signup">
-              {user && <Redirect to="/Holiday-Weather-Advisor" />}
+            <Route path="/Holiday_Weather_Advisor/signup">
+              {user && <Redirect to="/Holiday_Weather_Advisor" />}
               {!user && <Signup />}
             </Route>
-            <Route path="/Holiday-Weather-Advisor/noAccount">
-              {user && <Redirect to="/Holiday-Weather-Advisor" />}
+            <Route path="/Holiday_Weather_Advisor/noAccount">
+              {user && <Redirect to="/Holiday_Weather_Advisor" />}
               {!user && <NoAccount graphMode={graphMode} />}
             </Route>
           </Switch>

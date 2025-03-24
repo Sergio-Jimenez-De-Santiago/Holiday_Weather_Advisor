@@ -1,6 +1,6 @@
 {
-  "homepage": "http://Sergio-Jimenez-De-Santiago.github.io/Holiday-Weather-Advisor",
-  "name": "holiday-weather-advisor",
+  "homepage": "http://Sergio-Jimenez-De-Santiago.github.io/Holiday_Weather_Advisor",
+  "name": "holiday_weather_advisor",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -46,6 +46,6 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.3.3",
-    "gh-pages": "^6.1.1"
+    "gh-pages": "^6.3.0"
   }
 }
