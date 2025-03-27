@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Holiday_Weather_Advisor/static/css/main.132d957f.css",
-    "main.js": "/Holiday_Weather_Advisor/static/js/main.c849d302.js",
+    "main.js": "/Holiday_Weather_Advisor/static/js/main.885dea3b.js",
     "index.html": "/Holiday_Weather_Advisor/index.html",
     "main.132d957f.css.map": "/Holiday_Weather_Advisor/static/css/main.132d957f.css.map",
-    "main.c849d302.js.map": "/Holiday_Weather_Advisor/static/js/main.c849d302.js.map"
+    "main.885dea3b.js.map": "/Holiday_Weather_Advisor/static/js/main.885dea3b.js.map"
   },
   "entrypoints": [
     "static/css/main.132d957f.css",
-    "static/js/main.c849d302.js"
+    "static/js/main.885dea3b.js"
   ]
 }
