@@ -16,7 +16,7 @@ import { computeHourlyAndRangeStats } from "./utils/computeHourlyAndRangeStats"
 // In here I'm trying to change the max and min so that, for example, the min value is
 // the avg of min values across the 15teen years instead of the absolute min
 // If typeOfMaxMin === 0, use max/min, if === 1, use secondMax/Min, if === 2, use thirdMax/Min
-export const calculateHistoricalDataMaxMinAndAveragesUpdatedRefactored = (weatherDataArray, isItForecast, documents, error, typeOfMaxMin = 0) => {
+export const calculateHistoricalDataMaxMinAndAveragesUpdated = (weatherDataArray, isItForecast, documents, error, typeOfMaxMin = 0) => {
     console.log("weatherDataArray", weatherDataArray)
 
     const weights = {

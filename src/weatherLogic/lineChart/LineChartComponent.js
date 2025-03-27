@@ -16,7 +16,7 @@ import { getYAxisLabel, prepareCityChartData, generateAnnotations, buildChartCon
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend, Title, annotationPlugin);
 
 
-export const LineChartComponentMaxMinAndAverages = ({ data, title, timeRangeMode, dataQueried, sharedYScale }) => {
+export const LineChartComponent = ({ data, title, timeRangeMode, dataQueried, sharedYScale }) => {
     const yAxisLabel = getYAxisLabel(dataQueried);
     const cityData = prepareCityChartData(data, timeRangeMode, dataQueried)
     const annotations = generateAnnotations(data, cityData.labels, timeRangeMode)
@@ -26,7 +26,7 @@ export const LineChartComponentMaxMinAndAverages = ({ data, title, timeRangeMode
 };
 
 
-export const LineChartComponentMaxMinAndAveragesCombined = ({ data1, data2, title, timeRangeMode, 
+export const LineChartComponentCombined = ({ data1, data2, title, timeRangeMode, 
         dataQueried, sharedYScale, displayedCity1, displayedCity2 }) => {
 
     const yAxisLabel = getYAxisLabel(dataQueried);

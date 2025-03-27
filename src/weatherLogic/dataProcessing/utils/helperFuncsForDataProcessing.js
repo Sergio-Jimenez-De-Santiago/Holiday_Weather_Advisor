@@ -64,8 +64,8 @@ export const calculateTop7Average = (arr) => {
 
 // If hotOrCold === 1, we're calculating p of extreme heat, if === 0, extreme coldness
 export const calculateTemperatureProbabilities = (values, hotOrCold, documents, error) => {
-    const heatThreshold = error || !documents ? 27 : documents[0].highTemp;
-    const coldTreshold = error || !documents ? 0 : documents[0].lowTemp;
+    const heatThreshold = error || !documents ? 27 : parseFloat(documents[0].highTemp);
+    const coldTreshold = error || !documents ? 0 : parseFloat(documents[0].lowTemp);
     let overHeatCount = 0;
     let underColdCount = 0;
     
@@ -89,22 +89,22 @@ export const calculateTemperatureProbabilities = (values, hotOrCold, documents, 
 };
 
 export const calculatePrecipitationProbabilities = (values, precipitation, documents, error) => {
-    const rainyDay = error || !documents ? 3 : documents[0].rainy;
-    const noRainDay = error || !documents ? 1.5 : documents[0].notRainy;
+    const rainyDay = error || !documents ? 3 : parseFloat(documents[0].rainy);
+    const noRainDay = error || !documents ? 1.5 : parseFloat(documents[0].notRainy);
     
     if (precipitation){
-        if(values.avgRainSum > rainyDay) return 70;
-        if(values.maxRainSum > rainyDay) return 28;
+        if(values.avgRainSum > rainyDay) return 95;
+        if(values.maxRainSum > rainyDay) return 33;
     } else{
-        if(values.avgRainSum < noRainDay) return 75;
+        if(values.avgRainSum < noRainDay) return 95;
     }
     return 0;
 };
 
 // If wind === 1, we're calculating p of windy day, if === 0, of no wind
 export const calculateWindSpeedProbabilities = (values, wind, documents, error) => {
-    const windyDay = error || !documents ? 25 : documents[0].windy;
-    const noWindDay = error || !documents ? 8 : documents[0].notWindy;
+    const windyDay = error || !documents ? 25 : parseFloat(documents[0].windy);
+    const noWindDay = error || !documents ? 8 : parseFloat(documents[0].notWindy);
     let windyDayCount = 0;
     let noWindDayCount = 0;
     

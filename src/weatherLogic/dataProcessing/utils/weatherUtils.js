@@ -1,5 +1,5 @@
 import { fetchHistoricalWeatherData, fetchForecastDataOpenMeteo } from "../../api/api";
-import { calculateHistoricalDataMaxMinAndAveragesUpdatedRefactored } from "../dataProcessingRefactoring";
+import { calculateHistoricalDataMaxMinAndAveragesUpdated } from "../dataProcessing";
 
 
 // Reset time to midnight for date-only calculations (not taking time into account)
@@ -31,7 +31,7 @@ export const fetchCityWeather = async (geoData, start, end, currentDate, documen
                 overlapEnd + 1
             );
 
-            forecastData = calculateHistoricalDataMaxMinAndAveragesUpdatedRefactored(forecastRaw, true, documents, error);
+            forecastData = calculateHistoricalDataMaxMinAndAveragesUpdated(forecastRaw, true, documents, error);
             // Filter forecast data to include only days within [start, end]
             // Append the year to construct a valid date to then compare dates and keep only the ones the user inputted
             forecastData = forecastData.filter((day) => {
@@ -56,7 +56,7 @@ export const fetchCityWeather = async (geoData, start, end, currentDate, documen
             historicalEndStr
         );
 
-        historicalData = calculateHistoricalDataMaxMinAndAveragesUpdatedRefactored(historicalRaw, false, documents, error, 1);
+        historicalData = calculateHistoricalDataMaxMinAndAveragesUpdated(historicalRaw, false, documents, error, 1);
     }
 
     return [...forecastData, ...historicalData];
@@ -67,9 +67,6 @@ const capitalize = (s) => (s ? s[0].toUpperCase() + s.slice(1) : "");
 // Helper function to calculate the absolute max and min across both datasets to share a common y-axis
 // distribution = 0 is max, distribution = 1 is min
 export const calcYScale = (distribution, dataQueried, weatherData1, weatherData2, timeRangeMode) => {
-    console.log(weatherData1, "hello")
-    console.log(dataQueried)
-
     if (!weatherData1 || !weatherData2) return 0;
 
     if (timeRangeMode === 0) {
