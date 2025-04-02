@@ -22,7 +22,7 @@ function App() {
           <Navbar toggleGraphMode={toggleGraphMode} />
           <Switch>
             <Route exact path="/Holiday_Weather_Advisor">
-              {!user && <Redirect to="/Holiday_Weather_Advisor/login" />}
+              {!user && <Redirect to="/Holiday_Weather_Advisor/noAccount" />}
               {user && <Home graphMode={graphMode} />}
             </Route>
             <Route path="/Holiday_Weather_Advisor/login">
@@ -36,6 +36,9 @@ function App() {
             <Route path="/Holiday_Weather_Advisor/noAccount">
               {user && <Redirect to="/Holiday_Weather_Advisor" />}
               {!user && <NoAccount graphMode={graphMode} />}
+            </Route>
+            <Route path="*">
+              <Redirect to="/Holiday_Weather_Advisor" />
             </Route>
           </Switch>
         </BrowserRouter>

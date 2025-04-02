@@ -2,7 +2,7 @@ import styles from './Login.module.css';
 import { useState } from 'react';
 import { useLogin } from '../../hooks/useLogin';
 
-export default function Home() {
+export default function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const { login, error, isPending } = useLogin()

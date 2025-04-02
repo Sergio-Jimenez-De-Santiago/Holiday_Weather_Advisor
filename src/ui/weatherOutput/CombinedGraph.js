@@ -1,78 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { fetchGeolocation } from "../../weatherLogic/api/api";
-import WeatherComparisonForm from "../weatherComparisonForm/WeatherComparisonForm";
+import React, { useEffect } from "react";
 import { LineChartComponentCombined } from "../../weatherLogic/lineChart/LineChartComponent";
-import { resetToMidnight, fetchCityWeather, calcYScale } from "../../weatherLogic/dataProcessing/utils/weatherUtils";
-import { useAuthContext } from '../../hooks/useAuthContext';
-import { useCollection } from '../../hooks/useCollection';
+import { calcYScale } from "../../weatherLogic/dataProcessing/utils/weatherUtils";
 
 
-export default function CombinedGraph({ preferencesUpdated, noAccount=false }) {
-    const { user } = useAuthContext()
-    const queryUid = noAccount || !user ? "" : user.uid;
-    const { documents, error } = useCollection(
-        'preferences',
-        ["uid", "==", queryUid]
-    )
-
-    const effectiveDocuments = noAccount ? null : documents;
-    const effectiveDocumentError = noAccount ? null : error;
-
-    const [weatherData1, setWeatherData1] = useState(null);
-    const [weatherData2, setWeatherData2] = useState(null);
-    const [city1, setCity1] = useState("");
-    const [city2, setCity2] = useState("");
-    const [displayedCity1, setDisplayedCity1] = useState("");
-    const [displayedCity2, setDisplayedCity2] = useState("");
-    const [startDate, setStartDate] = useState("");
-    const [endDate, setEndDate] = useState("");
-    const [weatherError, setWeatherError] = useState(null);
-    const [timeRangeMode, setTimeRangeMode] = useState(0);
-
-    const handleFetchData = async (e) => {
-        e.preventDefault();
-        setWeatherError(null);
-        setWeatherData1(null);
-        setWeatherData2(null);
-
-        const currentDate = resetToMidnight(new Date());
-        const start = resetToMidnight(new Date(startDate));
-        const end = resetToMidnight(new Date(endDate));
-
-        if (end < start) {
-            setWeatherError("End date cannot be earlier than the start date.");
-            return;
-        }
-
-        if (start < currentDate || end < currentDate) {
-            setWeatherError("Selected dates must not be in the past");
-            return;
-        }
-
-        try {
-            // Fetch geolocation concurrently to speed up execution
-            const [geoData1, geoData2] = await Promise.all([
-                fetchGeolocation(city1),
-                fetchGeolocation(city2),
-            ]);
-
-            // Set display cities based on returned names by the fetch (eg. chinaa --> chinaane)
-            setDisplayedCity1(geoData1.name);
-            setDisplayedCity2(geoData2.name);
-
-            // Fetch weather data concurrently to speed up execution
-            const [cityWeather1, cityWeather2] = await Promise.all([
-                fetchCityWeather(geoData1, start, end, currentDate, effectiveDocuments, effectiveDocumentError),
-                fetchCityWeather(geoData2, start, end, currentDate, effectiveDocuments, effectiveDocumentError),
-            ]);
-
-            setWeatherData1(cityWeather1);
-            setWeatherData2(cityWeather2);
-        } catch (err) {
-            setWeatherError(err.message);
-        }
-    };
-
+export default function CombinedGraph({ preferencesUpdated, lowThreshold, highThreshold, weatherError, weatherData1, weatherData2, displayedCity1, displayedCity2, setWeatherData1, setWeatherData2, timeRangeMode }) {
     // Debug
     useEffect(() => {
         if (weatherData1) console.log("weatherData1:", weatherData1);
@@ -85,26 +16,8 @@ export default function CombinedGraph({ preferencesUpdated, noAccount=false }) {
         setWeatherData2(null);
     }, [preferencesUpdated]);
 
-    const lowThreshold = (effectiveDocuments && effectiveDocuments[0] && !effectiveDocumentError) ? effectiveDocuments[0].lowTemp : "0";
-    const highThreshold = (effectiveDocuments && effectiveDocuments[0] && !effectiveDocumentError) ? effectiveDocuments[0].highTemp : "27";
-
     return (
         <div style={{ textAlign: "center", padding: "0px 20px 20px" }}>
-            <h2>Combined Graphs</h2>
-            <WeatherComparisonForm
-                onSubmit={handleFetchData}
-                setCity1={setCity1}
-                setCity2={setCity2}
-                city1={city1}
-                city2={city2}
-                setStartDate={setStartDate}
-                setEndDate={setEndDate}
-                startDate={startDate}
-                endDate={endDate}
-                setTimeRangeMode={setTimeRangeMode}
-                timeRangeMode={timeRangeMode}
-            />
-
             {weatherError && <p style={{ color: "red" }}>{weatherError}</p>}
 
             {weatherData1 && weatherData2 && (
@@ -138,7 +51,7 @@ export default function CombinedGraph({ preferencesUpdated, noAccount=false }) {
                             {Math.min(...weatherData1.map((day) => parseFloat(day.dailyMaxMins.temperature.min)))}°C. 
                             During your trip, the probability of experiencing temperatures above {highThreshold}°C is {" "}
                             {(weatherData1.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.temperature.hotProbability), 0) / weatherData1.length).toFixed(1)}
-                            %, and the probability of experiencing temperatures bellow {lowThreshold}°C is {" "}
+                            %, and the probability of experiencing temperatures below {lowThreshold}°C is {" "}
                             {(weatherData1.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.temperature.coldProbability), 0) / weatherData1.length).toFixed(1)}%.
                         </p>
                     </div>
@@ -151,7 +64,7 @@ export default function CombinedGraph({ preferencesUpdated, noAccount=false }) {
                             {Math.min(...weatherData2.map((day) => parseFloat(day.dailyMaxMins.temperature.min)))}°C.
                             During your trip, the probability of experiencing temperatures above {highThreshold}°C is {" "}
                             {(weatherData2.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.temperature.hotProbability), 0) / weatherData2.length).toFixed(1)}
-                            %, and the probability of experiencing temperatures bellow {lowThreshold}°C is {" "}
+                            %, and the probability of experiencing temperatures below {lowThreshold}°C is {" "}
                             {(weatherData2.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.temperature.coldProbability), 0) / weatherData2.length).toFixed(1)}%.
                         </p>
                     </div>
