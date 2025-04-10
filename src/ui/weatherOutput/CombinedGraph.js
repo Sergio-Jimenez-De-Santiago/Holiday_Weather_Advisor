@@ -43,30 +43,52 @@ export default function CombinedGraph({ preferencesUpdated, lowThreshold, highTh
             {weatherData1 && weatherData2 && (
                 <div style={{ display: "flex", justifyContent: "space-around" }}>
                     <div style={{ display: "flex", justifyContent: "center" }}>
-                        <p style={{ width: "70%", fontSize: "15px" }}>
-                            Over the selected date range in {displayedCity1}, the average temperature is estimated to be around {" "}
-                            {(weatherData1.reduce((sum, day) => sum + parseFloat(day.dailyAverages.temperature), 0) / weatherData1.length).toFixed(1)}
-                            °C, with temperatures ranging from {" "}
-                            {Math.max(...weatherData1.map((day) => parseFloat(day.dailyMaxMins.temperature.max)))}°C to {" "}
-                            {Math.min(...weatherData1.map((day) => parseFloat(day.dailyMaxMins.temperature.min)))}°C. 
-                            During your trip, the probability of experiencing temperatures above {highThreshold}°C is {" "}
-                            {(weatherData1.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.temperature.hotProbability), 0) / weatherData1.length).toFixed(1)}
-                            %, and the probability of experiencing temperatures below {lowThreshold}°C is {" "}
-                            {(weatherData1.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.temperature.coldProbability), 0) / weatherData1.length).toFixed(1)}%.
-                        </p>
+                        <ul style={{ width: "80%", fontSize: "15px", listStyleType: "disc", textAlign: "left" }}>
+                            <li>
+                                Over the selected date range in {displayedCity1}, the average temperature is estimated to be around{" "}
+                                {(weatherData1.reduce((sum, day) => sum + parseFloat(day.dailyAverages.temperature), 0) / weatherData1.length).toFixed(1)}
+                                °C.
+                            </li>
+                            <li>
+                                Temperatures range from{" "}
+                                {Math.max(...weatherData1.map((day) => parseFloat(day.dailyMaxMins.temperature.max)))}°C to{" "}
+                                {Math.min(...weatherData1.map((day) => parseFloat(day.dailyMaxMins.temperature.min)))}°C.
+                            </li>
+                            <li>
+                                Probability of experiencing temperatures above {highThreshold}°C:{" "}
+                                {(weatherData1.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.temperature.hotProbability), 0) / weatherData1.length).toFixed(1)}
+                                %.
+                            </li>
+                            <li>
+                                Probability of experiencing temperatures below {lowThreshold}°C:{" "}
+                                {(weatherData1.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.temperature.coldProbability), 0) / weatherData1.length).toFixed(1)}
+                                %.
+                            </li>
+                        </ul>
                     </div>
                     <div style={{ display: "flex", justifyContent: "center" }}>
-                        <p style={{ width: "70%", fontSize: "15px" }}>
-                            Over the selected date range in {displayedCity2}, the average temperature is estimated to be around {" "}
-                            {(weatherData2.reduce((sum, day) => sum + parseFloat(day.dailyAverages.temperature), 0) / weatherData2.length).toFixed(1)}
-                            °C, with temperatures ranging from {" "}
-                            {Math.max(...weatherData2.map((day) => parseFloat(day.dailyMaxMins.temperature.max)))}°C to {" "}
-                            {Math.min(...weatherData2.map((day) => parseFloat(day.dailyMaxMins.temperature.min)))}°C.
-                            During your trip, the probability of experiencing temperatures above {highThreshold}°C is {" "}
-                            {(weatherData2.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.temperature.hotProbability), 0) / weatherData2.length).toFixed(1)}
-                            %, and the probability of experiencing temperatures below {lowThreshold}°C is {" "}
-                            {(weatherData2.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.temperature.coldProbability), 0) / weatherData2.length).toFixed(1)}%.
-                        </p>
+                        <ul style={{ width: "80%", fontSize: "15px", listStyleType: "disc", textAlign: "left" }}>
+                            <li>
+                                Over the selected date range in {displayedCity2}, the average temperature is estimated to be around{" "}
+                                {(weatherData2.reduce((sum, day) => sum + parseFloat(day.dailyAverages.temperature), 0) / weatherData2.length).toFixed(1)}
+                                °C.
+                            </li>
+                            <li>
+                                Temperatures range from{" "}
+                                {Math.max(...weatherData2.map((day) => parseFloat(day.dailyMaxMins.temperature.max)))}°C to{" "}
+                                {Math.min(...weatherData2.map((day) => parseFloat(day.dailyMaxMins.temperature.min)))}°C.
+                            </li>
+                            <li>
+                                Probability of experiencing temperatures above {highThreshold}°C:{" "}
+                                {(weatherData2.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.temperature.hotProbability), 0) / weatherData2.length).toFixed(1)}
+                                %.
+                            </li>
+                            <li>
+                                Probability of experiencing temperatures below {lowThreshold}°C:{" "}
+                                {(weatherData2.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.temperature.coldProbability), 0) / weatherData2.length).toFixed(1)}
+                                %.
+                            </li>
+                        </ul>
                     </div>
                 </div>
             )}
@@ -94,28 +116,50 @@ export default function CombinedGraph({ preferencesUpdated, lowThreshold, highTh
             {weatherData1 && weatherData2 && (
                 <div style={{ display: "flex", justifyContent: "space-around" }}>
                     <div style={{ display: "flex", justifyContent: "center" }}>
-                        <p style={{ width: "70%", fontSize: "15px" }}>
-                            Over the selected date range in {displayedCity1}, the total rainfall amount per day is estimated to be around {" "}
-                            {(weatherData1.reduce((sum, day) => sum + parseFloat(day.dailyAverages.rainfall), 0) / weatherData1.length).toFixed(1)}
-                            mm on average, with values reaching up to {" "}
-                            {Math.max(...weatherData1.map((day) => parseFloat(day.dailyMaxMins.rainfall.max)))}mm.
-                            During your trip, the probability of experiencing a rainy day is {" "}
-                            {(weatherData1.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.rainfall.rainyProbability), 0) / weatherData1.length).toFixed(1)}
-                            % and the probability of experiencing little to no rain is {" "}
-                            {(weatherData1.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.rainfall.noRainProbability), 0) / weatherData1.length).toFixed(1)}%.
-                        </p>
+                        <ul style={{ width: "80%", fontSize: "15px", listStyleType: "disc", textAlign: "left" }}>
+                            <li>
+                                Over the selected date range in {displayedCity1}, the total rainfall per day is estimated to be around{" "}
+                                {(weatherData1.reduce((sum, day) => sum + parseFloat(day.dailyAverages.rainfall), 0) / weatherData1.length).toFixed(1)}
+                                mm on average.
+                            </li>
+                            <li>
+                                Rainfall can reach up to{" "}
+                                {Math.max(...weatherData1.map((day) => parseFloat(day.dailyMaxMins.rainfall.max)))}mm.
+                            </li>
+                            <li>
+                                Probability of experiencing a rainy day:{" "}
+                                {(weatherData1.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.rainfall.rainyProbability), 0) / weatherData1.length).toFixed(1)}
+                                %.
+                            </li>
+                            <li>
+                                Probability of experiencing little to no rain:{" "}
+                                {(weatherData1.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.rainfall.noRainProbability), 0) / weatherData1.length).toFixed(1)}
+                                %.
+                            </li>
+                        </ul>
                     </div>
                     <div style={{ display: "flex", justifyContent: "center" }}>
-                        <p style={{ width: "70%", fontSize: "15px" }}>
-                            Over the selected date range in {displayedCity2}, the total rainfall amount per day is estimated to be around {" "}
-                            {(weatherData2.reduce((sum, day) => sum + parseFloat(day.dailyAverages.rainfall), 0) / weatherData2.length).toFixed(1)}
-                            mm on average, with values reaching up to {" "}
-                            {Math.max(...weatherData2.map((day) => parseFloat(day.dailyMaxMins.rainfall.max)))}mm.
-                            During your trip, the probability of experiencing a rainy day is {" "}
-                            {(weatherData2.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.rainfall.rainyProbability), 0) / weatherData2.length).toFixed(1)}
-                            % and the probability of experiencing little to no rain is {" "}
-                            {(weatherData2.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.rainfall.noRainProbability), 0) / weatherData2.length).toFixed(1)}%.
-                        </p>
+                        <ul style={{ width: "80%", fontSize: "15px", listStyleType: "disc", textAlign: "left" }}>
+                            <li>
+                                Over the selected date range in {displayedCity2}, the total rainfall per day is estimated to be around{" "}
+                                {(weatherData2.reduce((sum, day) => sum + parseFloat(day.dailyAverages.rainfall), 0) / weatherData2.length).toFixed(1)}
+                                mm on average.
+                            </li>
+                            <li>
+                                Rainfall can reach up to{" "}
+                                {Math.max(...weatherData2.map((day) => parseFloat(day.dailyMaxMins.rainfall.max)))}mm.
+                            </li>
+                            <li>
+                                Probability of experiencing a rainy day:{" "}
+                                {(weatherData2.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.rainfall.rainyProbability), 0) / weatherData2.length).toFixed(1)}
+                                %.
+                            </li>
+                            <li>
+                                Probability of experiencing little to no rain:{" "}
+                                {(weatherData2.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.rainfall.noRainProbability), 0) / weatherData2.length).toFixed(1)}
+                                %.
+                            </li>
+                        </ul>
                     </div>
                 </div>
             )}
@@ -143,30 +187,52 @@ export default function CombinedGraph({ preferencesUpdated, lowThreshold, highTh
             {weatherData1 && weatherData2 && (
                 <div style={{ display: "flex", justifyContent: "space-around" }}>
                     <div style={{ display: "flex", justifyContent: "center" }}>
-                        <p style={{ width: "70%", fontSize: "15px" }}>
-                            Over the selected date range in {displayedCity1}, the average wind speed is estimated to be around {" "}
-                            {(weatherData1.reduce((sum, day) => sum + parseFloat(day.dailyAverages.windSpeed), 0) / weatherData1.length).toFixed(1)}
-                            km/h, with wind speeds ranging from {" "}
-                            {Math.max(...weatherData1.map((day) => parseFloat(day.dailyMaxMins.windSpeed.max)))}km/h to {" "}
-                            {Math.min(...weatherData1.map((day) => parseFloat(day.dailyMaxMins.windSpeed.min)))}km/h.
-                            During your trip, the probability of experiencing a very windy day is {" "}
-                            {(weatherData1.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.windSpeed.windyProbability), 0) / weatherData1.length).toFixed(1)}
-                            % and the probability of experiencing little to no wind is {" "}
-                            {(weatherData1.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.windSpeed.noWindProbability), 0) / weatherData1.length).toFixed(1)}%.
-                        </p>
+                        <ul style={{ width: "80%", fontSize: "15px", listStyleType: "disc", textAlign: "left" }}>
+                            <li>
+                                Over the selected date range in {displayedCity1}, the average wind speed is estimated to be around{" "}
+                                {(weatherData1.reduce((sum, day) => sum + parseFloat(day.dailyAverages.windSpeed), 0) / weatherData1.length).toFixed(1)}
+                                km/h.
+                            </li>
+                            <li>
+                                Wind speeds range from{" "}
+                                {Math.max(...weatherData1.map((day) => parseFloat(day.dailyMaxMins.windSpeed.max)))}km/h to{" "}
+                                {Math.min(...weatherData1.map((day) => parseFloat(day.dailyMaxMins.windSpeed.min)))}km/h.
+                            </li>
+                            <li>
+                                Probability of experiencing a very windy day:{" "}
+                                {(weatherData1.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.windSpeed.windyProbability), 0) / weatherData1.length).toFixed(1)}
+                                %.
+                            </li>
+                            <li>
+                                Probability of experiencing little to no wind:{" "}
+                                {(weatherData1.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.windSpeed.noWindProbability), 0) / weatherData1.length).toFixed(1)}
+                                %.
+                            </li>
+                        </ul>
                     </div>
                     <div style={{ display: "flex", justifyContent: "center" }}>
-                        <p style={{ width: "70%", fontSize: "15px" }}>
-                            Over the selected date range in {displayedCity2}, the average wind speed is estimated to be around {" "}
-                            {(weatherData2.reduce((sum, day) => sum + parseFloat(day.dailyAverages.windSpeed), 0) / weatherData2.length).toFixed(1)}
-                            km/h, with wind speeds ranging from {" "}
-                            {Math.max(...weatherData2.map((day) => parseFloat(day.dailyMaxMins.windSpeed.max)))}km/h to {" "}
-                            {Math.min(...weatherData2.map((day) => parseFloat(day.dailyMaxMins.windSpeed.min)))}km/h.
-                            During your trip, the probability of experiencing a very windy day is {" "}
-                            {(weatherData2.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.windSpeed.windyProbability), 0) / weatherData2.length).toFixed(1)}
-                            % and the probability of experiencing little to no wind is {" "}
-                            {(weatherData2.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.windSpeed.noWindProbability), 0) / weatherData2.length).toFixed(1)}%.
-                        </p>
+                        <ul style={{ width: "80%", fontSize: "15px", listStyleType: "disc", textAlign: "left" }}>
+                            <li>
+                                Over the selected date range in {displayedCity2}, the average wind speed is estimated to be around{" "}
+                                {(weatherData2.reduce((sum, day) => sum + parseFloat(day.dailyAverages.windSpeed), 0) / weatherData2.length).toFixed(1)}
+                                km/h.
+                            </li>
+                            <li>
+                                Wind speeds range from{" "}
+                                {Math.max(...weatherData2.map((day) => parseFloat(day.dailyMaxMins.windSpeed.max)))}km/h to{" "}
+                                {Math.min(...weatherData2.map((day) => parseFloat(day.dailyMaxMins.windSpeed.min)))}km/h.
+                            </li>
+                            <li>
+                                Probability of experiencing a very windy day:{" "}
+                                {(weatherData2.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.windSpeed.windyProbability), 0) / weatherData2.length).toFixed(1)}
+                                %.
+                            </li>
+                            <li>
+                                Probability of experiencing little to no wind:{" "}
+                                {(weatherData2.reduce((sum, day) => sum + parseFloat(day.dailyMaxMins.windSpeed.noWindProbability), 0) / weatherData2.length).toFixed(1)}
+                                %.
+                            </li>
+                        </ul>
                     </div>
                 </div>
             )}
